@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 
 public class Graph {
+    //initialization of variables
     int idGraph;
     File chosenGraph;
     int nbVertices;
@@ -53,6 +54,8 @@ public class Graph {
         return listOfVertices;
     }
     //---------------------------------------------------------------
+
+    //function used to select the right graph from a user choice
     public boolean setChosenGraph(int choice){
         switch (choice){
             case 1:
@@ -99,21 +102,21 @@ public class Graph {
         }
     }
 
-
+    //function used to fill the Arrays
     public void fillGraph(File chosenGraph) throws FileNotFoundException {
         Scanner sc = new Scanner(chosenGraph);
         while (sc.hasNext()){
             int n = sc.nextInt();
-            setNbVertices(n);
+            setNbVertices(n); //setup the number of vertices
             n = sc.nextInt();
-            setNbEdges(n);
-            int [][] numbers = new int[this.getNbVertices()][3];
-            for (int i = 0; i < numbers.length; i++){
+            setNbEdges(n); //setup the number of edges
+            int [][] numbers = new int[this.getNbVertices()][3]; //declaring an array in which we are going to put all the edges
+            for (int i = 0; i < numbers.length; i++){ //for loop that fills the array with all the edges
                 numbers[i][0]=sc.nextInt();
                 numbers[i][1]=sc.nextInt();
-                numbers[i][2]=sc.nextInt();
+                numbers[i][2]=sc.nextInt(); //here is my last error, "noSuchElementException"
             }
-            for (int j = 0; j < this.getNbVertices() ; j++){
+            for (int j = 0; j < this.getNbVertices() ; j++){ //for loop that fills the list of Vertices
                 Vertex v = new Vertex();
                 int temp = numbers[j][0];
                 v.setVertexID(temp);
@@ -124,7 +127,7 @@ public class Graph {
                     this.getListOfVertices().add(v);
                 }
             }
-            for (int k = 0; k < this.getNbVertices(); k++){
+            for (int k = 0; k < this.getNbVertices(); k++){ //for loop that fills the list of Edges from a Vertice
                 Edge e = new Edge();
                 Vertex parent = new Vertex();
                 Vertex child = new Vertex();
@@ -142,6 +145,7 @@ public class Graph {
 
     }
 
+    //main used to try things
     public static void main (String[] args) throws FileNotFoundException {
         Graph g = new Graph();
         g.setChosenGraph(1);
