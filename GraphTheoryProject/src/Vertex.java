@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Vertex {
-    int vertexID;
-    int vertexRank;
-    int nbInGoingEdges = 0;
+    private int vertexID;
+    private int vertexRank;
+
 
 
 
@@ -29,12 +29,6 @@ public class Vertex {
         return this.vertexRank;
     }
 
-    public int getInGoingEdges() {
-        return nbInGoingEdges;
-    }
-    public void setInGoingEdges(int inGoingEdges) {
-        this.nbInGoingEdges = inGoingEdges;
-    }
 
     public ArrayList<Edge> getListOfIngoingEdges(){
         return this.listOfIngoingEdges;

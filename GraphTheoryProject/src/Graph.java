@@ -126,18 +126,10 @@ public class Graph {
 
             for (int j = 0; j < this.getNbVertices(); j++) { //for loop that fills the list of Vertices
                 Vertex v = new Vertex();
-                v.vertexID = j; //Here, we attribute the value of the loop to the vertex, because we know how many vertices we have
+                v.setVertexID(j); //Here, we attribute the value of the loop to the vertex, because we know how many vertices we have
                 this.listOfVertices.add(v);
             }
 
-            for (int i = 0; i < this.getNbVertices(); i++) //For loop that will initialize the number of ingoing edges for each vertex
-            {
-                for (int j = 0; j < this.getNbEdges(); j++) { //Here we go through all the data we have into the array numbers
-                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]) { //If the vertexId is the same as the second number on the line (Vertex receiving)
-                        this.listOfVertices.get(i).nbInGoingEdges++;
-                    }
-                }
-            }
 
             for (int i = 0 ; i < this.listOfVertices.size() ; i++) //For loop that goes through all the vertices one by one
             {
@@ -146,7 +138,7 @@ public class Graph {
                 Vertex child = new Vertex();
 
                 for (int j = 0 ; j < this.getNbEdges() ; j++) //For loop that will fill every edges
-                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]){ //If the vertexId is the same as the second number on the line (Vertex receiving)
+                    if (this.listOfVertices.get(i).getVertexID() == numbers[j][1]){ //If the vertexId is the same as the second number on the line (Vertex receiving)
                         e.setEdgeParent(this.listOfVertices.get(numbers[j][1]));    //We set the parent vertex to the number contained in the file at position 2 of its line
                         e.setEdgeChild(this.listOfVertices.get(i)); //We set the child vertex which is at the rank where we currently are (because it is sending)
                         e.setEdgeWeight(numbers[j][2]); //We set the weight thanks to the line we currently are in the file at position 3
@@ -166,14 +158,9 @@ public class Graph {
         g.setChosenGraph(2);
         g.fillGraph(g.chosenGraph);
 
-/*
-        for (int i = 0; i < g.listOfVertices.size(); i++) {
-            System.out.println(g.listOfVertices.get(i).vertexID);
-        }
-*/
         for (int i = 0; i < g.getNbVertices(); i++) {
             for (int j = 0; j < g.listOfVertices.get(i).listOfIngoingEdges.size(); j++) {
-                System.out.print(" " + g.listOfVertices.get(i).listOfIngoingEdges.get(j).edgeWeight+ " ");
+                System.out.print(" " + g.listOfVertices.get(i).listOfIngoingEdges.get(j).getEdgeParent() + " ");
             }
             System.out.println();
         }
