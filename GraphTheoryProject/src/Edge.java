@@ -20,8 +20,7 @@ public class Edge {
         this.edgeWeight = newWeight;
     }
 
-    public void setEdgeParent(Vertex newParent){
-        this.edgeParent = newParent;
+    public void setEdgeParent(Vertex newParent){this.edgeParent = newParent;
     }
 
     public void setEdgeChild(Vertex newChild){
