@@ -3,6 +3,15 @@ import java.util.ArrayList;
 public class Vertex {
     int vertexID;
     int vertexRank;
+    int nbInGoingEdges = 0;
+
+
+
+
+
+
+
+
     ArrayList<Edge> listOfIngoingEdges = new ArrayList<>();
 
     //-------------------------GETTERS & SETTERS---------------------------------\\
@@ -18,6 +27,13 @@ public class Vertex {
     }
     public int getVertexRank(){
         return this.vertexRank;
+    }
+
+    public int getInGoingEdges() {
+        return nbInGoingEdges;
+    }
+    public void setInGoingEdges(int inGoingEdges) {
+        this.nbInGoingEdges = inGoingEdges;
     }
 
     public ArrayList<Edge> getListOfIngoingEdges(){

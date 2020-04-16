@@ -19,6 +19,7 @@ public class Graph {
     public void setCycle(boolean cycle) {
         this.cycle = cycle;
     }
+
     public boolean isCycle() {
         return cycle;
     }
@@ -26,6 +27,7 @@ public class Graph {
     public void setIdGraph(int idGraph) {
         this.idGraph = idGraph;
     }
+
     public int getIdGraph() {
         return idGraph;
     }
@@ -33,6 +35,7 @@ public class Graph {
     public void setNbEdges(int nbEdges) {
         this.nbEdges = nbEdges;
     }
+
     public int getNbEdges() {
         return nbEdges;
     }
@@ -40,6 +43,7 @@ public class Graph {
     public void setNbVertices(int nbVertices) {
         this.nbVertices = nbVertices;
     }
+
     public int getNbVertices() {
         return nbVertices;
     }
@@ -47,6 +51,7 @@ public class Graph {
     public void setTotalWeight(int totalWeight) {
         this.totalWeight = totalWeight;
     }
+
     public int getTotalWeight() {
         return totalWeight;
     }
@@ -57,8 +62,8 @@ public class Graph {
     //---------------------------------------------------------------
 
     //function used to select the right graph from a user choice
-    public boolean setChosenGraph(int choice){
-        switch (choice){
+    public boolean setChosenGraph(int choice) {
+        switch (choice) {
             case 1:
                 this.chosenGraph = new File("./txt/1.txt");
                 return true;
@@ -107,62 +112,75 @@ public class Graph {
     //function used to fill the Arrays
     public void fillGraph(File chosenGraph) throws FileNotFoundException {
         Scanner sc = new Scanner(chosenGraph);
-        while (sc.hasNext()){
+        while (sc.hasNext()) {
             int n = sc.nextInt();
             setNbVertices(n); //setup the number of vertices
             n = sc.nextInt();
             setNbEdges(n); //setup the number of edges
-            int [][] numbers = new int[this.getNbEdges()][3]; //declaring an array in which we are going to put all the edges
-            for (int i = 0; i < numbers.length; i++){ //for loop that fills the array with all the edges
-                numbers[i][0]=sc.nextInt();
-                numbers[i][1]=sc.nextInt();
-                numbers[i][2]=sc.nextInt(); //here is my last error, "noSuchElementException"
+            int[][] numbers = new int[this.getNbEdges()][3]; //declaring an array in which we are going to put all the edges
+            for (int i = 0; i < numbers.length; i++) { //for loop that fills the array with all the edges
+                numbers[i][0] = sc.nextInt();
+                numbers[i][1] = sc.nextInt();
+                numbers[i][2] = sc.nextInt(); //here is my last error, "noSuchElementException"
             }
-            for (int j = 0; j < this.getNbEdges() ; j++){ //for loop that fills the list of Vertices
+
+            for (int j = 0; j < this.getNbVertices(); j++) { //for loop that fills the list of Vertices
                 Vertex v = new Vertex();
-                int temp = numbers[j][0];
-                v.setVertexID(temp);
-                if (this.getListOfVertices().isEmpty()){ //fills the first element
-                    this.getListOfVertices().add(v);
-                }
-                for (int l = 0 ; l < this.getListOfVertices().size(); l++){ //la boucle qui casse les couilles
-                    if (l == this.getListOfVertices().size()){
-                        if (this.getListOfVertices().get(l).getVertexID() != v.vertexID){
-                            this.getListOfVertices().add(v);
-                        }
+                v.vertexID = j; //Here, we attribute the value of the loop to the vertex, because we know how many vertices we have
+                this.listOfVertices.add(v);
+            }
+
+            for (int i = 0; i < this.getNbVertices(); i++) //For loop that will initialize the number of ingoing edges for each vertex
+            {
+                for (int j = 0; j < this.getNbEdges(); j++) {
+                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]) {
+                        this.listOfVertices.get(i).nbInGoingEdges++;
                     }
                 }
             }
-            for (int k = 0; k < this.getNbEdges(); k++){ //for loop that fills the list of Edges from a Vertice
+
+            for (int i = 0 ; i < this.listOfVertices.size() ; i++)
+            {
                 Edge e = new Edge(); //creation of temp values
                 Vertex parent = new Vertex();
                 Vertex child = new Vertex();
-                parent.setVertexID(numbers[k][0]); //assigning IDs from edges array
-                child.setVertexID(numbers[k][1]);
-                e.setEdgeParent(parent);//assigning values to temp edge
-                e.setEdgeChild(child);
-                e.setEdgeWeight(numbers[k][2]);
-                if (this.getListOfVertices().contains(parent)){ //adding all edges to the list of edges
-                    int index = this.getListOfVertices().indexOf(parent);
-                    this.getListOfVertices().get(index).getListOfIngoingEdges().add(e);
-                }
-            }
-        }
 
+                for (int j = 0 ; j < this.getNbEdges() ; j++)
+                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]){
+                        e.setEdgeParent(this.listOfVertices.get(i));
+                        e.setEdgeChild(this.listOfVertices.get(numbers[j][1]));
+                        e.setEdgeWeight(numbers[j][2]);
+
+                        this.listOfVertices.get(i).listOfIngoingEdges.add(e);
+                    }
+            }
+
+        }
     }
+
 
     //main used to try things
-    public static void main (String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
         Graph g = new Graph();
 
-        g.setChosenGraph(1);
+        g.setChosenGraph(2);
         g.fillGraph(g.chosenGraph);
-        System.out.println(g.getNbVertices());
-        /*
-        for (int i = 0; i < g.getNbVertices() ; i++ ){
-            System.out.println(g.getListOfVertices().get(i).getVertexID());
-        }*/
+
+/*
+        for (int i = 0; i < g.listOfVertices.size(); i++) {
+            System.out.println(g.listOfVertices.get(i).vertexID);
+        }
+*/
+        for (int i = 0; i < g.getNbVertices(); i++) {
+            for (int j = 0; j < g.listOfVertices.get(i).listOfIngoingEdges.size(); j++) {
+                System.out.print(" " + g.listOfVertices.get(i).listOfIngoingEdges.get(j).edgeWeight+ " ");
+            }
+            System.out.println();
+        }
     }
-
-
 }
+
+
+
+
+
