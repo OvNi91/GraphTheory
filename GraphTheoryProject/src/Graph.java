@@ -60,43 +60,43 @@ public class Graph {
     public boolean setChosenGraph(int choice){
         switch (choice){
             case 1:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/1.txt");
+                this.chosenGraph = new File("./txt/1.txt");
                 return true;
             case 2:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/2.txt");
+                this.chosenGraph = new File("./txt/2.txt");
                 return true;
             case 3:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/3.txt");
+                this.chosenGraph = new File("./txt/3.txt");
                 return true;
             case 4:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/4.txt");
+                this.chosenGraph = new File("./txt/4.txt");
                 return true;
             case 5:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/5.txt");
+                this.chosenGraph = new File("./txt/5.txt");
                 return true;
             case 6:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/6.txt");
+                this.chosenGraph = new File("./txt/6.txt");
                 return true;
             case 7:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/7.txt");
+                this.chosenGraph = new File("./txt/7.txt");
                 return true;
             case 8:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/8.txt");
+                this.chosenGraph = new File("./txt/8.txt");
                 return true;
             case 9:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/9.txt");
+                this.chosenGraph = new File("./txt/9.txt");
                 return true;
             case 10:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/10.txt");
+                this.chosenGraph = new File("./txt/10.txt");
                 return true;
             case 11:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/11.txt");
+                this.chosenGraph = new File("./txt/11.txt");
                 return true;
             case 12:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/12.txt");
+                this.chosenGraph = new File("./txt/12.txt");
                 return true;
             case 13:
-                this.chosenGraph = new File("C:/Users/gmaza/IdeaProjects/GraphTheory/GraphTheory/GraphTheoryProject/txt/13.txt");
+                this.chosenGraph = new File("./txt/13.txt");
                 return true;
             default:
                 return false;
@@ -154,11 +154,14 @@ public class Graph {
     //main used to try things
     public static void main (String[] args) throws FileNotFoundException {
         Graph g = new Graph();
+
         g.setChosenGraph(1);
         g.fillGraph(g.chosenGraph);
+        System.out.println(g.getNbVertices());
+        /*
         for (int i = 0; i < g.getNbVertices() ; i++ ){
             System.out.println(g.getListOfVertices().get(i).getVertexID());
-        }
+        }*/
     }
 
 
