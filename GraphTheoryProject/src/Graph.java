@@ -132,26 +132,26 @@ public class Graph {
 
             for (int i = 0; i < this.getNbVertices(); i++) //For loop that will initialize the number of ingoing edges for each vertex
             {
-                for (int j = 0; j < this.getNbEdges(); j++) {
-                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]) {
+                for (int j = 0; j < this.getNbEdges(); j++) { //Here we go through all the data we have into the array numbers
+                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]) { //If the vertexId is the same as the second number on the line (Vertex receiving)
                         this.listOfVertices.get(i).nbInGoingEdges++;
                     }
                 }
             }
 
-            for (int i = 0 ; i < this.listOfVertices.size() ; i++)
+            for (int i = 0 ; i < this.listOfVertices.size() ; i++) //For loop that goes through all the vertices one by one
             {
                 Edge e = new Edge(); //creation of temp values
                 Vertex parent = new Vertex();
                 Vertex child = new Vertex();
 
-                for (int j = 0 ; j < this.getNbEdges() ; j++)
-                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]){
-                        e.setEdgeParent(this.listOfVertices.get(i));
-                        e.setEdgeChild(this.listOfVertices.get(numbers[j][1]));
-                        e.setEdgeWeight(numbers[j][2]);
+                for (int j = 0 ; j < this.getNbEdges() ; j++) //For loop that will fill every edges
+                    if (this.listOfVertices.get(i).vertexID == numbers[j][1]){ //If the vertexId is the same as the second number on the line (Vertex receiving)
+                        e.setEdgeParent(this.listOfVertices.get(numbers[j][1]));    //We set the parent vertex to the number contained in the file at position 2 of its line
+                        e.setEdgeChild(this.listOfVertices.get(i)); //We set the child vertex which is at the rank where we currently are (because it is sending)
+                        e.setEdgeWeight(numbers[j][2]); //We set the weight thanks to the line we currently are in the file at position 3
 
-                        this.listOfVertices.get(i).listOfIngoingEdges.add(e);
+                        this.listOfVertices.get(i).listOfIngoingEdges.add(e); //We finally add the new edge to the list of edges of the current vertex
                     }
             }
 
