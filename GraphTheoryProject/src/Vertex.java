@@ -4,6 +4,10 @@ public class Vertex {
     int vertexID;
     int vertexRank;
     ArrayList<Edge> listOfIngoingEdges = new ArrayList<>();
+    ArrayList<Edge> listOfOutgoingEdges = new ArrayList<>();
+
+
+
 
     //-------------------------GETTERS & SETTERS---------------------------------\\
     public void setVertexID(int vertexID) {
@@ -22,6 +26,10 @@ public class Vertex {
 
     public ArrayList<Edge> getListOfIngoingEdges(){
         return this.listOfIngoingEdges;
+    }
+
+    public ArrayList<Edge> getListOfOutgoingEdges() {
+        return listOfOutgoingEdges;
     }
 
 }
