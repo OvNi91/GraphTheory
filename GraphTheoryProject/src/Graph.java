@@ -171,6 +171,11 @@ public class Graph {
                     System.out.println("Receives from : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
                 }
             }
+            System.out.println("Code de Aurélien");
+
+
+
+
             System.out.println("-------------------------");
             System.out.println("Give another number between 1 and 13 if you want to see another graph, or anything else to exit");
             choice = sc.nextInt();
