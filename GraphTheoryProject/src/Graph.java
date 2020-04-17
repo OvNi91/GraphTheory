@@ -147,14 +147,14 @@ public class Graph {
 
                     Edge e2 = new Edge(); //creation of temp values
 
-                    if (this.listOfVertices.get(i).getVertexID() == numbers[j][0])
+                    if (this.listOfVertices.get(i).getVertexID() == numbers[j][0]) //To increment the list of outgoing edges
                     {
 
                         e.setEdgeParent(this.listOfVertices.get(numbers[j][1]));    //We set the parent vertex to the number contained in the file at position 2 of its line
                         e.setEdgeChild(this.listOfVertices.get(numbers[j][0])); //We set the child vertex which is at the rank where we currently are (because it is sending)
                         e.setEdgeWeight(numbers[j][2]); //We set the weight thanks to the line we currently are in the file at position 3
 
-                        this.listOfVertices.get(i).listOfOutgoingEdges.add(e);
+                        this.listOfVertices.get(i).listOfOutgoingEdges.add(e); //Here we increment the list of outgoing edges
                     }
                 }
             }
