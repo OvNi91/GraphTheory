@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3ecb0178-fd95-4537-a871-a7236751cf8d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.java" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,12 +33,24 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../FileStream" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="Application.Graph">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.GraphMed">
     <configuration name="Graph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Graph" />
       <module name="GraphTheory" />
@@ -46,8 +58,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+    <configuration name="GraphMed" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Graph" />
       <module name="GraphTheory" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -63,10 +75,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Graph" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.GraphMed" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GraphMed" />
         <item itemvalue="Application.Graph" />
-        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -93,23 +110,31 @@
       <workItem from="1586884426990" duration="9106000" />
       <workItem from="1586903460257" duration="374000" />
       <workItem from="1586953388539" duration="3548000" />
+      <workItem from="1586976699228" duration="1708000" />
+      <workItem from="1587028824111" duration="24000" />
+      <workItem from="1587042951672" duration="10004000" />
+      <workItem from="1587055026607" duration="630000" />
+      <workItem from="1587055743365" duration="697000" />
+      <workItem from="1587068363599" duration="311000" />
+      <workItem from="1587117139496" duration="13000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="0" key="CommitChangelistDialog2" timestamp="1586884540667">
