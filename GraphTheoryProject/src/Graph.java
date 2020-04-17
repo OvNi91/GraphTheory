@@ -57,7 +57,11 @@ public class Graph {
     }
 
     public ArrayList<Vertex> getListOfVertices() {
+<<<<<<< HEAD
         return this.listOfVertices;
+=======
+        return listOfVertices;
+>>>>>>> ffb54710bdbce894fc8e149a86d35ea9dce22ce7
     }
     //---------------------------------------------------------------
 
@@ -121,7 +125,11 @@ public class Graph {
             for (int i = 0; i < numbers.length; i++) { //for loop that fills the array with all the edges
                 numbers[i][0] = sc.nextInt();
                 numbers[i][1] = sc.nextInt();
+<<<<<<< HEAD
                 numbers[i][2] = sc.nextInt();
+=======
+                numbers[i][2] = sc.nextInt(); //here is my last error, "noSuchElementException"
+>>>>>>> ffb54710bdbce894fc8e149a86d35ea9dce22ce7
             }
 
             for (int j = 0; j < this.getNbVertices(); j++) { //for loop that fills the list of Vertices
@@ -133,6 +141,7 @@ public class Graph {
 
             for (int i = 0 ; i < this.listOfVertices.size() ; i++) //For loop that goes through all the vertices one by one
             {
+<<<<<<< HEAD
                 for (int j = 0; j < this.getNbEdges(); j++) {//For loop that will fill every edges
                     Edge e = new Edge(); //creation of temp values
                     Vertex parent = new Vertex();
@@ -145,6 +154,20 @@ public class Graph {
                         this.listOfVertices.get(i).listOfIngoingEdges.add(this.getListOfVertices().get(i).getListOfIngoingEdges().size(), e); //We finally add the new edge to the list of edges of the current vertex
                     }
                 }
+=======
+                Edge e = new Edge(); //creation of temp values
+                Vertex parent = new Vertex();
+                Vertex child = new Vertex();
+
+                for (int j = 0 ; j < this.getNbEdges() ; j++) //For loop that will fill every edges
+                    if (this.listOfVertices.get(i).getVertexID() == numbers[j][1]){ //If the vertexId is the same as the second number on the line (Vertex receiving)
+                        e.setEdgeParent(this.listOfVertices.get(numbers[j][1]));    //We set the parent vertex to the number contained in the file at position 2 of its line
+                        e.setEdgeChild(this.listOfVertices.get(i)); //We set the child vertex which is at the rank where we currently are (because it is sending)
+                        e.setEdgeWeight(numbers[j][2]); //We set the weight thanks to the line we currently are in the file at position 3
+
+                        this.listOfVertices.get(i).listOfIngoingEdges.add(e); //We finally add the new edge to the list of edges of the current vertex
+                    }
+>>>>>>> ffb54710bdbce894fc8e149a86d35ea9dce22ce7
             }
 
         }
@@ -154,6 +177,7 @@ public class Graph {
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
         Graph g = new Graph();
+<<<<<<< HEAD
         Scanner sc = new Scanner(System.in);
         System.out.println("Give the number of the graph you want to see, between 1 to 13, anything else to exit");
         int choice = sc.nextInt();
@@ -178,3 +202,22 @@ public class Graph {
         System.out.println("Bye !");
     }
 }
+=======
+
+        g.setChosenGraph(2);
+        g.fillGraph(g.chosenGraph);
+
+        for (int i = 0; i < g.getNbVertices(); i++) {
+            for (int j = 0; j < g.listOfVertices.get(i).listOfIngoingEdges.size(); j++) {
+                System.out.print(" " + g.listOfVertices.get(i).listOfIngoingEdges.get(j).getEdgeParent() + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+
+
+
+>>>>>>> ffb54710bdbce894fc8e149a86d35ea9dce22ce7
