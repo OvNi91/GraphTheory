@@ -144,6 +144,18 @@ public class Graph {
 
                         this.listOfVertices.get(i).listOfIngoingEdges.add(this.getListOfVertices().get(i).getListOfIngoingEdges().size(), e); //We finally add the new edge to the list of edges of the current vertex
                     }
+
+                    Edge e2 = new Edge(); //creation of temp values
+
+                    if (this.listOfVertices.get(i).getVertexID() == numbers[j][0]) //To increment the list of outgoing edges
+                    {
+
+                        e.setEdgeParent(this.listOfVertices.get(numbers[j][1]));    //We set the parent vertex to the number contained in the file at position 2 of its line
+                        e.setEdgeChild(this.listOfVertices.get(numbers[j][0])); //We set the child vertex which is at the rank where we currently are (because it is sending)
+                        e.setEdgeWeight(numbers[j][2]); //We set the weight thanks to the line we currently are in the file at position 3
+
+                        this.listOfVertices.get(i).listOfOutgoingEdges.add(e); //Here we increment the list of outgoing edges
+                    }
                 }
             }
 
@@ -170,6 +182,11 @@ public class Graph {
                 for (int j = 0; j < g.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
                     System.out.println("Receives from : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
                 }
+
+                for (int j = 0; j < g.getListOfVertices().get(i).getListOfOutgoingEdges().size(); j++) {
+                    System.out.println("Sends to : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeParent().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight());
+                }
+                System.out.println("-------------------------");
             }
             System.out.println("Code de Aurélien");
 
