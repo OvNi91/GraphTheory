@@ -253,15 +253,14 @@ public class Graph {
 
         for (int i = 0; i < graph.getListOfVertices().size(); i++) //We update the list of sources
         {
-            if (graph.getListOfVertices().get(i).isSource()) {
+            if (graph.getListOfVertices().get(i).isSource())
+            {
                 sourcesTemp.add(graph.getListOfVertices().get(i));
-                System.out.println("SOURCE : " + graph.getListOfVertices().get(i).getVertexID());
             }
         }
 
         for (int i = 0; i < this.getListOfVertices().size(); i++) //Loop that contains the algorithm
         {
-            System.out.println("Itération : " + i);
             for (int k = 0; k < sourcesTemp.size(); k++) //For every sources (through all current sources)
             {
                 for (int l = 0; l < this.getListOfVertices().size(); l++) //For each vertex (through each vertex of the real graph)
@@ -269,7 +268,6 @@ public class Graph {
                     if (this.getListOfVertices().get(l).getVertexID() == sourcesTemp.get(k).getVertexID())
                     {
                         this.getListOfVertices().get(l).setVertexRank(i); //We set the rank of the vertex with the iteration of the algorithm
-                        System.out.println("Je change le rank de : " + this.getListOfVertices().get(l).getVertexID());
                     }
                 }
             }
@@ -303,25 +301,20 @@ public class Graph {
 
              if (sourcesTemp.isEmpty()) //If there are no more sources, we stop here
              {
-                 System.out.println("Je sors");
                  break;
              } else {
-                 System.out.println("Je reste");
                  sourcesTemp.removeAll(sourcesTemp); //Reinitialize the array of sources
              }
 
             for (int j = 0; j < graph.getListOfVertices().size(); j++) //We update the list of sources
             {
                 graph.getListOfVertices().get(j).setSource();
-                System.out.println("Is Source : " + graph.getListOfVertices().get(j).isSource() + " -> VertexID : " + graph.getListOfVertices().get(j).getVertexID());
                 if (graph.getListOfVertices().get(j).isSource())
                 {
                     sourcesTemp.add(graph.getListOfVertices().get(j));
-                    System.out.println("Nouvelle source " + graph.getListOfVertices().get(j).getVertexID());
                 }
             }
         }
-        System.out.println("Je sors pas par la bonne porte");
     }
 
 
