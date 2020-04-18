@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
@@ -268,7 +269,7 @@ public class Graph {
                     if (this.getListOfVertices().get(l).getVertexID() == sourcesTemp.get(k).getVertexID())
                     {
                         this.getListOfVertices().get(l).setVertexRank(i); //We set the rank of the vertex with the iteration of the algorithm
-                        System.out.println("Je change un vertex Rank");
+                        System.out.println("Je change le rank de : " + this.getListOfVertices().get(l).getVertexID());
                     }
                 }
             }
@@ -307,11 +308,6 @@ public class Graph {
              } else {
                  System.out.println("Je reste");
                  sourcesTemp.removeAll(sourcesTemp); //Reinitialize the array of sources
-                 System.out.println("Liste des sources : ");
-                 for (int b = 0 ; b < sourcesTemp.size() ; b++)
-                 {
-                     System.out.println(sourcesTemp.get(b));
-                 }
              }
 
             for (int j = 0; j < graph.getListOfVertices().size(); j++) //We update the list of sources
@@ -322,10 +318,10 @@ public class Graph {
                 {
                     sourcesTemp.add(graph.getListOfVertices().get(j));
                     System.out.println("Nouvelle source " + graph.getListOfVertices().get(j).getVertexID());
-
                 }
             }
         }
+        System.out.println("Je sors pas par la bonne porte");
     }
 
 
