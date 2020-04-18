@@ -242,6 +242,8 @@ public class Graph {
     }
 
 
+    /** Method to fill the ranks of the different vertices **/
+    /** Can be used only if the given graph has no cycle **/
     public void setVerticesRank(int idGraph) throws FileNotFoundException {
         Graph graph = new Graph(); //Graph which we will use in order to delete its vertices and find the ranks
         graph.setChosenGraph(idGraph);
@@ -286,15 +288,17 @@ public class Graph {
                 }
             }
 
-
-            for (int m = 0; m < graph.getListOfVertices().size(); m++) //Here we go through all the vertices of the temporary graph
+            for (int n = 0 ; n < sourcesTemp.size() ; n++) //For each sources we have
             {
-                graph.getListOfVertices().get(m).setSource();
-                if (graph.getListOfVertices().get(m).isSource())  //If the vertex is a source we remove from the temporary graph
+                for (int m = 0; m < graph.getListOfVertices().size(); m++) //Here we go through all the vertices of the temporary graph
                 {
-                    graph.getListOfVertices().remove(m); // We remove the vertex
+                    if (graph.getListOfVertices().get(m).getVertexID() == sourcesTemp.get(n).getVertexID())  //If the vertex is a source we remove from the temporary graph
+                    {
+                        graph.getListOfVertices().remove(m); // We remove the vertex
+                    }
                 }
             }
+
 
              if (sourcesTemp.isEmpty()) //If there are no more sources, we stop here
              {
@@ -303,19 +307,31 @@ public class Graph {
              } else {
                  System.out.println("Je reste");
                  sourcesTemp.removeAll(sourcesTemp); //Reinitialize the array of sources
+                 System.out.println("Liste des sources : ");
+                 for (int b = 0 ; b < sourcesTemp.size() ; b++)
+                 {
+                     System.out.println(sourcesTemp.get(b));
+                 }
              }
 
             for (int j = 0; j < graph.getListOfVertices().size(); j++) //We update the list of sources
             {
-                System.out.println("Boucle pour refill Sources ITERATION " + j);
-                if (graph.getListOfVertices().get(j).getListOfIngoingEdges().isEmpty())
+                graph.getListOfVertices().get(j).setSource();
+                System.out.println("Is Source : " + graph.getListOfVertices().get(j).isSource() + " -> VertexID : " + graph.getListOfVertices().get(j).getVertexID());
+                if (graph.getListOfVertices().get(j).isSource())
                 {
                     sourcesTemp.add(graph.getListOfVertices().get(j));
                     System.out.println("Nouvelle source " + graph.getListOfVertices().get(j).getVertexID());
+
                 }
             }
         }
     }
+
+
+
+
+
 
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
