@@ -59,6 +59,11 @@ public class Graph {
     public ArrayList<Vertex> getListOfVertices() {
         return this.listOfVertices;
     }
+
+
+    public File getChosenGraph() {
+        return chosenGraph;
+    }
     //---------------------------------------------------------------
 
     //function used to select the right graph from a user choice
@@ -158,25 +163,109 @@ public class Graph {
                     }
                 }
             }
+        }
 
+        for (int i = 0 ; i < this.getListOfVertices().size() ; i++)
+        {
+                this.getListOfVertices().get(i).setSource();
+        }
+    }
+
+    public boolean isCyclic(int idGraph) throws FileNotFoundException{
+        //------ Initialisation ------\\
+        Graph graph = new Graph();
+        graph.setChosenGraph(idGraph);
+        graph.fillGraph(graph.getChosenGraph());
+
+        ArrayList<Vertex> sourcesTemp = new ArrayList<>();
+
+        for (int i = 0 ; i < graph.getListOfVertices().size() ; i++)
+        {
+            if (graph.getListOfVertices().get(i).isSource())  //If the vertex is a source we add it to the list of sources
+            {
+                sourcesTemp.add(graph.getListOfVertices().get(i));
+            }
+        }
+        //------ Over ------\\
+
+        //------ Beginning of the algorithm ------\\
+
+        while (!sourcesTemp.isEmpty()) //Tant que la liste des sources n'est pas vide
+        {
+
+            /** No need to remove the outgoing edges because they'll be removed when we will remove the sources from
+             the temporary graph we created
+             **/
+
+            for (int i = 0 ; i < graph.getListOfVertices().size() ; i++) { //We go through all the vertices in order to remove the right edges
+                for (int k = 0; k < sourcesTemp.size(); k++) //This way, we go through all the current sources
+                {
+                    for (int j = 0; j < graph.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) // We go through every INGOING edges of each vertex
+                    {
+                            if (graph.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() == sourcesTemp.get(k).getVertexID()) //If the ID of the vertex we currently are is the same as the child of the edge we currently are
+                            {
+                                graph.getListOfVertices().get(i).getListOfIngoingEdges().remove(j); //We remove the edge at the index of j >> the edge which is coming from a source
+                            }
+                    }
+                }
+
+            }
+
+            for (int i = 0 ; i < graph.getListOfVertices().size() ; i++)
+            {
+                if (graph.getListOfVertices().get(i).isSource())  //If the vertex is a source we remove from the temporary graph
+                {
+                    graph.getListOfVertices().remove(i); // We remove the vertex
+                }
+            }
+
+            graph.setNbVertices(graph.getNbVertices() - sourcesTemp.size());
+            //It would be good to remove the correct number of edges but I don't know how we can know it right now
+
+            sourcesTemp.removeAll(sourcesTemp); //Reinitialize the array of sources
+
+            for (int i = 0 ; i < graph.getListOfVertices().size() ; i++) //We find the new sources created
+            {
+                graph.getListOfVertices().get(i).setSource();
+                if (graph.getListOfVertices().get(i).isSource())  //If the vertex is a source we add it to the list of sources
+                {
+                        sourcesTemp.add(graph.getListOfVertices().get(i));
+                }
+            }
+        }
+
+        if (graph.getListOfVertices().isEmpty()) //If the list containing all the vertices is empty, it means that there is not a cycle
+        {
+            return false;
+        } else { //If the list of vertices isn't empty, it means there is a cycle
+            return true;
         }
     }
 
 
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
-        Graph g = new Graph();
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Give the number of the graph you want to see, between 1 to 13, anything else to exit");
         int choice = sc.nextInt();
         while (1 <= choice && choice <= 13){
+            Graph g = new Graph();
             g.setChosenGraph(choice);
             g.fillGraph(g.chosenGraph);
 
+            if (g.isCyclic(choice)) {
+                System.out.println("-> The graph has cycle <-");
+            } else {
+                System.out.println("-> The graph has no cycle <-");
+            }
+
             System.out.println("---------------------------------------");
+
+
             for (int i = 0; i < g.getNbVertices(); i++) {
                 System.out.println("Vertex "+g.listOfVertices.get(i).getVertexID() + " ");
-                if (g.getListOfVertices().get(i).getListOfIngoingEdges().isEmpty()){
+                if (g.getListOfVertices().get(i).isSource()){
                     System.out.println("This vertex is a source");
                 }
                 for (int j = 0; j < g.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
