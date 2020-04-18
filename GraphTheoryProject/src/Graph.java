@@ -259,7 +259,7 @@ public class Graph {
             }
         }
 
-        for (int i = 0; i < graph.getListOfVertices().size(); i++) //Loop that contains the algorithm
+        for (int i = 0; i < this.getListOfVertices().size(); i++) //Loop that contains the algorithm
         {
             System.out.println("Itération : " + i);
             for (int k = 0; k < sourcesTemp.size(); k++) //For every sources (through all current sources)
