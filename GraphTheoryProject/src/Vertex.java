@@ -5,6 +5,11 @@ public class Vertex {
     int vertexRank;
     ArrayList<Edge> listOfIngoingEdges = new ArrayList<>();
     ArrayList<Edge> listOfOutgoingEdges = new ArrayList<>();
+    boolean source = false;
+
+
+
+
 
 
 
@@ -31,5 +36,22 @@ public class Vertex {
     public ArrayList<Edge> getListOfOutgoingEdges() {
         return listOfOutgoingEdges;
     }
+
+    public boolean isSource() {
+        return source;
+    }
+    public void setSource() {
+
+        if (listOfIngoingEdges.isEmpty())
+        {
+            this.source = true;
+        }
+        else
+        {
+            this.source = false;
+        }
+    }
+
+
 
 }
