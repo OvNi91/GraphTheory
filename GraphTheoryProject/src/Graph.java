@@ -171,9 +171,11 @@ public class Graph {
         }
     }
 
-    public boolean isCyclic(){
+    public boolean isCyclic(int idGraph) throws FileNotFoundException{
         //------ Initialisation ------\\
-        Graph graph = this;
+        Graph graph = new Graph();
+        graph.setChosenGraph(idGraph);
+        graph.fillGraph(graph.getChosenGraph());
 
         ArrayList<Vertex> sourcesTemp = new ArrayList<>();
 
@@ -232,7 +234,7 @@ public class Graph {
             }
         }
 
-        if (getListOfVertices().isEmpty()) //If the list containing all the vertices is empty, it means that there is not a cycle
+        if (graph.getListOfVertices().isEmpty()) //If the list containing all the vertices is empty, it means that there is not a cycle
         {
             return false;
         } else { //If the list of vertices isn't empty, it means there is a cycle
@@ -252,34 +254,26 @@ public class Graph {
             g.setChosenGraph(choice);
             g.fillGraph(g.chosenGraph);
 
-            if (g.isCyclic())
-            {
-                System.out.println("The graph has cycle");
-            }
-            else
-            {
-                System.out.println("The graph has no cycle");
+            if (g.isCyclic(choice)) {
+                System.out.println("-> The graph has cycle <-");
+            } else {
+                System.out.println("-> The graph has no cycle <-");
             }
 
             System.out.println("---------------------------------------");
 
 
-
-            Graph g2 = new Graph();
-            g2.setChosenGraph(choice);
-            g2.fillGraph(g2.chosenGraph);
-
-            for (int i = 0; i < g2.getNbVertices(); i++) {
-                System.out.println("Vertex "+g2.listOfVertices.get(i).getVertexID() + " ");
-                if (g2.getListOfVertices().get(i).isSource()){
+            for (int i = 0; i < g.getNbVertices(); i++) {
+                System.out.println("Vertex "+g.listOfVertices.get(i).getVertexID() + " ");
+                if (g.getListOfVertices().get(i).isSource()){
                     System.out.println("This vertex is a source");
                 }
-                for (int j = 0; j < g2.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
-                    System.out.println("Receives from : " + g2.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g2.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
+                for (int j = 0; j < g.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
+                    System.out.println("Receives from : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
                 }
 
-                for (int j = 0; j < g2.getListOfVertices().get(i).getListOfOutgoingEdges().size(); j++) {
-                    System.out.println("Sends to : " + g2.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeParent().getVertexID() + " with a weight of : " + g2.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight());
+                for (int j = 0; j < g.getListOfVertices().get(i).getListOfOutgoingEdges().size(); j++) {
+                    System.out.println("Sends to : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeParent().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight());
                 }
                 System.out.println("-------------------------");
             }
