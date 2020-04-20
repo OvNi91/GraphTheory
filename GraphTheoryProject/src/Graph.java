@@ -190,6 +190,25 @@ public class Graph {
             }
             System.out.println("Code de Aurélien");
 
+            //The goal here will be to find the shortest path
+            System.out.println("From which source do you want to go?");
+            int choiceSource = sc.nextInt(); //We choose the source of the shortest path
+
+            if (g.getListOfVertices().get(choiceSource).getListOfIngoingEdges().isEmpty()){
+                System.out.println("This vertex is a source");
+            }
+            else{
+                System.out.println("This vertex is not a source");
+            }
+
+            g.listOfVertices.get(choiceSource).vertexValue = 0;//We initialize the value of the source at 0
+            int[][] shortestPath; //We initialize our table for the shortest path
+
+            for (int n = 0; n<g.getNbVertices();n++){
+                if (g.listOfVertices.get(n).vertexValue != 0){
+                    g.listOfVertices.get(n).vertexValue = 10000;//We initialize the value of the other vertices at 10000 (infinity)
+                }
+            }
 
 
 

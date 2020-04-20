@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Vertex {
     int vertexID;
     int vertexRank;
+    int vertexValue;
     ArrayList<Edge> listOfIngoingEdges = new ArrayList<>();
     ArrayList<Edge> listOfOutgoingEdges = new ArrayList<>();
 
@@ -23,6 +24,10 @@ public class Vertex {
     public int getVertexRank(){
         return this.vertexRank;
     }
+
+    public void setVertexValue(int vertexValue) {this.vertexValue = vertexValue; }
+
+    public int getVertexValue() {return this.vertexValue; }
 
     public ArrayList<Edge> getListOfIngoingEdges(){
         return this.listOfIngoingEdges;
