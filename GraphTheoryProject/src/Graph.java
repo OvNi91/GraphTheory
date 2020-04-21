@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
@@ -173,11 +174,11 @@ public class Graph {
 
     public boolean isCyclic(int idGraph) throws FileNotFoundException{
         //------ Initialisation ------\\
-        Graph graph = new Graph();
+        Graph graph = new Graph(); //Graph on which we will do our operations
         graph.setChosenGraph(idGraph);
         graph.fillGraph(graph.getChosenGraph());
 
-        ArrayList<Vertex> sourcesTemp = new ArrayList<>();
+        ArrayList<Vertex> sourcesTemp = new ArrayList<>(); //List that contains all the sources at one iteration
 
         for (int i = 0 ; i < graph.getListOfVertices().size() ; i++)
         {
@@ -208,7 +209,6 @@ public class Graph {
                             }
                     }
                 }
-
             }
 
             for (int i = 0 ; i < graph.getListOfVertices().size() ; i++)
@@ -284,6 +284,85 @@ public class Graph {
     }
 
 
+    /** Method to fill the ranks of the different vertices **/
+    /** Can be used only if the given graph has no cycle **/
+    public void setVerticesRank(int idGraph) throws FileNotFoundException {
+        Graph graph = new Graph(); //Graph which we will use in order to delete its vertices and find the ranks
+        graph.setChosenGraph(idGraph);
+        graph.fillGraph(graph.getChosenGraph());
+        ArrayList<Vertex> sourcesTemp = new ArrayList<>(); //List that contains all the sources at one iteration
+
+        for (int i = 0; i < graph.getListOfVertices().size(); i++) //We update the list of sources
+        {
+            if (graph.getListOfVertices().get(i).isSource())
+            {
+                sourcesTemp.add(graph.getListOfVertices().get(i));
+            }
+        }
+
+        for (int i = 0; i < this.getListOfVertices().size(); i++) //Loop that contains the algorithm
+        {
+            for (int k = 0; k < sourcesTemp.size(); k++) //For every sources (through all current sources)
+            {
+                for (int l = 0; l < this.getListOfVertices().size(); l++) //For each vertex (through each vertex of the real graph)
+                {
+                    if (this.getListOfVertices().get(l).getVertexID() == sourcesTemp.get(k).getVertexID())
+                    {
+                        this.getListOfVertices().get(l).setVertexRank(i); //We set the rank of the vertex with the iteration of the algorithm
+                    }
+                }
+            }
+
+            for (int j = 0 ; j < graph.getListOfVertices().size() ; j++) //We need to remove all the edges from the vertices we will delete
+            {
+                for (int k = 0; k < sourcesTemp.size(); k++) //This way, we go through all the current sources
+                {
+                    for (int l = 0; l < graph.getListOfVertices().get(j).getListOfIngoingEdges().size() ; l++) // We go through every INGOING edges of each vertex
+                    {
+                        if (graph.getListOfVertices().get(j).getListOfIngoingEdges().get(l).getEdgeChild().getVertexID() == sourcesTemp.get(k).getVertexID()) //If the ID of the vertex we currently are is the same as the child of the edge we currently are
+                        {
+                            graph.getListOfVertices().get(j).getListOfIngoingEdges().remove(l); //We remove the edge at the index of j >> the edge which is coming from a source
+
+                        }
+                    }
+                }
+            }
+
+            for (int n = 0 ; n < sourcesTemp.size() ; n++) //For each sources we have
+            {
+                for (int m = 0; m < graph.getListOfVertices().size(); m++) //Here we go through all the vertices of the temporary graph
+                {
+                    if (graph.getListOfVertices().get(m).getVertexID() == sourcesTemp.get(n).getVertexID())  //If the vertex is a source we remove from the temporary graph
+                    {
+                        graph.getListOfVertices().remove(m); // We remove the vertex
+                    }
+                }
+            }
+
+
+             if (sourcesTemp.isEmpty()) //If there are no more sources, we stop here
+             {
+                 break;
+             } else {
+                 sourcesTemp.removeAll(sourcesTemp); //Reinitialize the array of sources
+             }
+
+            for (int j = 0; j < graph.getListOfVertices().size(); j++) //We update the list of sources
+            {
+                graph.getListOfVertices().get(j).setSource();
+                if (graph.getListOfVertices().get(j).isSource())
+                {
+                    sourcesTemp.add(graph.getListOfVertices().get(j));
+                }
+            }
+        }
+    }
+
+
+
+
+
+
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -301,11 +380,13 @@ public class Graph {
                 System.out.println("-> The graph has no cycle <-");
             }
 
+            g.setVerticesRank(choice);
+
             System.out.println("---------------------------------------");
 
 
             for (int i = 0; i < g.getNbVertices(); i++) {
-                System.out.println("Vertex "+g.listOfVertices.get(i).getVertexID() + " ");
+                System.out.println("Vertex " + g.listOfVertices.get(i).getVertexID() + " -> Rank : " + g.getListOfVertices().get(i).getVertexRank());
                 if (g.getListOfVertices().get(i).isSource()){
                     System.out.println("This vertex is a source");
                 }

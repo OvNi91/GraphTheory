@@ -5,7 +5,7 @@ public class Vertex {
     int vertexRank;
     ArrayList<Edge> listOfIngoingEdges = new ArrayList<>();
     ArrayList<Edge> listOfOutgoingEdges = new ArrayList<>();
-    boolean source = false;
+    boolean source;
 
 
 
