@@ -213,25 +213,30 @@ public class Graph {
 
             for (int m =0;m<=g.nbVertices;m++){
                 for (int l = 0; l<=g.nbVertices;l++){
-                    shortestPath[m][l] = 10000;
+                    shortestPath[m][l] = 10000; //We fill the initial table with 10000 (infinite values)
                 }
             }
 
 
-            for (int i = 0; i<g.nbVertices-1; i++){
-                for (int j = 0; j<g.getListOfVertices().get(j).vertexID; j++){
-                    for (int k = 0; k<g.getListOfVertices().get(j).getListOfOutgoingEdges().size(); k++){
+            for (int i = 0; i<g.nbVertices-1; i++){ //We will repeat the following interation for the number of vertices minus 1
+                for (int j = 0; j<g.getListOfVertices().get(j).vertexID; j++){//We will repeat the following iteration for each vertice
+                    for (int k = 0; k<g.getListOfVertices().get(j).getListOfOutgoingEdges().size(); k++){//We will repeat the iteration for each predecessor of the vertex
+                        //We set the value of the vertex as the minimum between the value of the parent + the weight of the edge and the actual value of the vertex
                         g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue = Math.min(g.getListOfVertices().get(j).vertexValue+g.getListOfVertices().get(j).listOfOutgoingEdges.get(k).edgeWeight,g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue);
 
+                        //We fill the graph with the values we found
                         if(g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue<shortestPath[i][k]){
                             shortestPath[i][k] = g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue;
                         }
                     }
                 }
             }
+
+            //We create an array that will store the final shortestPath
             int[] realShortPath;
             realShortPath = new int[g.nbVertices];
 
+            //We fill this array with the last line of the table
             for (int o=0; o<g.nbVertices;o++){
                 realShortPath[o] = shortestPath[g.nbVertices][o];
             }
