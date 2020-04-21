@@ -202,14 +202,41 @@ public class Graph {
             }
 
             g.listOfVertices.get(choiceSource).vertexValue = 0;//We initialize the value of the source at 0
-            int[][] shortestPath; //We initialize our table for the shortest path
+            int[][]shortestPath; //We initialize our table for the shortest path
+            shortestPath = new int[g.nbVertices][g.nbVertices-1];
 
-            for (int n = 0; n<g.getNbVertices();n++){
+            for (int n = 0; n<g.nbVertices;n++){
                 if (g.listOfVertices.get(n).vertexValue != 0){
                     g.listOfVertices.get(n).vertexValue = 10000;//We initialize the value of the other vertices at 10000 (infinity)
                 }
             }
 
+            for (int m =0;m<=g.nbVertices;m++){
+                for (int l = 0; l<=g.nbVertices;l++){
+                    shortestPath[m][l] = 10000;
+                }
+            }
+
+
+            for (int i = 0; i<g.nbVertices-1; i++){
+                for (int j = 0; j<g.getListOfVertices().get(j).vertexID; j++){
+                    for (int k = 0; k<g.getListOfVertices().get(j).getListOfOutgoingEdges().size(); k++){
+                        g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue = Math.min(g.getListOfVertices().get(j).vertexValue+g.getListOfVertices().get(j).listOfOutgoingEdges.get(k).edgeWeight,g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue);
+
+                        if(g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue<shortestPath[i][k]){
+                            shortestPath[i][k] = g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue;
+                        }
+                    }
+                }
+            }
+            int[] realShortPath;
+            realShortPath = new int[g.nbVertices];
+
+            for (int o=0; o<g.nbVertices;o++){
+                realShortPath[o] = shortestPath[g.nbVertices][o];
+            }
+
+            System.out.println("The shortest path is : "+realShortPath);
 
 
             System.out.println("-------------------------");
