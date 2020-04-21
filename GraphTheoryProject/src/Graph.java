@@ -242,6 +242,47 @@ public class Graph {
         }
     }
 
+    public void displayAdjacencyMatrix(){
+        System.out.print("   ");
+        for (int i = 0; i < this.getListOfVertices().size(); i++){
+            System.out.print(this.getListOfVertices().get(i).getVertexID() + " ");
+        }
+        System.out.print("\n");
+        for (int i = 0; i < this.getListOfVertices().size(); i++){
+            if (i < 10){
+                System.out.print(this.getListOfVertices().get(i).getVertexID() + "  ");
+            }
+            else{
+                System.out.print(this.getListOfVertices().get(i).getVertexID() + " ");
+            }
+            for (int j = 0; j < this.getListOfVertices().size(); j++){
+                boolean isChild = false;
+                for (int k = 0; k < this.getListOfVertices().get(i).getListOfOutgoingEdges().size(); k++){
+                    if(this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeParent().getVertexID() == this.getListOfVertices().get(j).getVertexID()){
+                        isChild = true;
+                    }
+                }
+                if (isChild == true){
+                    if (j < 10){
+                        System.out.print("1 ");
+                    }
+                    else{
+                        System.out.print("1  ");
+                    }
+                }
+                else{
+                    if (j < 10){
+                        System.out.print("- ");
+                    }
+                    else{
+                        System.out.print("-  ");
+                    }
+                }
+            }
+            System.out.print("\n");
+        }
+    }
+
 
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
