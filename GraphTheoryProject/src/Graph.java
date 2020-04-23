@@ -56,6 +56,10 @@ public class Graph {
         return totalWeight;
     }
 
+    public File getChosenGraph() {
+        return chosenGraph;
+    }
+
     public ArrayList<Vertex> getListOfVertices() {
         return this.listOfVertices;
     }
@@ -161,7 +165,87 @@ public class Graph {
 
         }
     }
+    public void FindShortestPath(int idGraph) throws FileNotFoundException {
+        System.out.println("Code de Aurélien");
+        Scanner sc = new Scanner(System.in);
 
+
+        //The goal here will be to find the shortest path
+        System.out.println("From which source do you want to go?");
+        int choiceSource = sc.nextInt(); //We choose the source of the shortest path
+
+        if (this.getListOfVertices().get(choiceSource).getListOfIngoingEdges().isEmpty()){
+            System.out.println("This vertex is a source");
+        }
+        else{
+            System.out.println("This vertex is not a source");
+        }
+
+        this.listOfVertices.get(choiceSource).vertexValue = 0;//We initialize the value of the source at 0
+        int[][]shortestPath; //We initialize our table for the shortest path
+        shortestPath = new int[this.nbVertices-1][this.nbVertices];
+
+
+        for (int n = 0; n<this.nbVertices;n++){
+            if (this.listOfVertices.get(n).vertexValue != 0){
+                this.listOfVertices.get(n).vertexValue = 10000;//We initialize the value of the other vertices at 10000 (infinity)
+            }
+        }
+
+        for (int m =0;m<this.nbVertices-1;m++){//nb lines
+            for (int l = 0; l<this.nbVertices;l++){//nb columns
+                if (l == choiceSource){
+                    shortestPath[m][l] = 0;
+                    System.out.print(shortestPath[m][l] + " ");
+                }
+                else {
+                    shortestPath[m][l] = 10000; //We fill the initial table with 10000 (infinite values)
+                    System.out.print(shortestPath[m][l] + " ");
+                }
+            }
+            System.out.println();
+        }
+
+
+        for (int i = 0; i<this.nbVertices; i++){ //We will repeat the following interation for the number of vertices minus 1
+
+
+            for (int j = 0; j<this.getListOfVertices().size(); j++){//We will repeat the following iteration for each vertex
+
+
+                for (int k = 0; k<this.getListOfVertices().get(j).getListOfOutgoingEdges().size(); k++){//We will repeat the iteration for each predecessor of the vertex
+
+                    //We set the value of the vertex as the minimum between the value of the parent + the weight of the edge and the actual value of the vertex
+                    if (this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue!=0) {
+                        this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue = Math.min(this.getListOfVertices().get(j).vertexValue + this.getListOfVertices().get(j).listOfOutgoingEdges.get(k).edgeWeight, this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue);
+                    }
+                    else{
+                        this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue = this.getListOfVertices().get(j).vertexValue+this.getListOfVertices().get(j).listOfOutgoingEdges.get(k).edgeWeight;
+                    }
+
+                    //We fill the graph with the values we found
+                    if(this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue<=shortestPath[this.nbVertices-2][i]){
+                        shortestPath[this.nbVertices-2][i] = this.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue;
+
+                    }
+                    System.out.println(shortestPath[j][k]+" ");
+                }
+            }
+        }
+
+        //We create an array that will store the final shortestPath
+        int[] realShortPath;
+        realShortPath = new int[this.nbVertices];
+
+        System.out.println("6");
+        //We fill this array with the last line of the table
+        for (int o=0; o<=this.nbVertices-1;o++){
+            realShortPath[o] = shortestPath[this.nbVertices-2][o];
+            System.out.print(realShortPath[o]+" ");
+        }
+        System.out.println("7");
+        System.out.println("The shortest path is : "+realShortPath);
+    }
 
     //main used to try things
     public static void main(String[] args) throws FileNotFoundException {
@@ -188,61 +272,8 @@ public class Graph {
                 }
                 System.out.println("-------------------------");
             }
-            System.out.println("Code de Aurélien");
 
-            //The goal here will be to find the shortest path
-            System.out.println("From which source do you want to go?");
-            int choiceSource = sc.nextInt(); //We choose the source of the shortest path
-
-            if (g.getListOfVertices().get(choiceSource).getListOfIngoingEdges().isEmpty()){
-                System.out.println("This vertex is a source");
-            }
-            else{
-                System.out.println("This vertex is not a source");
-            }
-
-            g.listOfVertices.get(choiceSource).vertexValue = 0;//We initialize the value of the source at 0
-            int[][]shortestPath; //We initialize our table for the shortest path
-            shortestPath = new int[g.nbVertices][g.nbVertices-1];
-
-            for (int n = 0; n<g.nbVertices;n++){
-                if (g.listOfVertices.get(n).vertexValue != 0){
-                    g.listOfVertices.get(n).vertexValue = 10000;//We initialize the value of the other vertices at 10000 (infinity)
-                }
-            }
-
-            for (int m =0;m<=g.nbVertices;m++){
-                for (int l = 0; l<=g.nbVertices;l++){
-                    shortestPath[m][l] = 10000; //We fill the initial table with 10000 (infinite values)
-                }
-            }
-
-
-            for (int i = 0; i<g.nbVertices-1; i++){ //We will repeat the following interation for the number of vertices minus 1
-                for (int j = 0; j<g.getListOfVertices().get(j).vertexID; j++){//We will repeat the following iteration for each vertice
-                    for (int k = 0; k<g.getListOfVertices().get(j).getListOfOutgoingEdges().size(); k++){//We will repeat the iteration for each predecessor of the vertex
-                        //We set the value of the vertex as the minimum between the value of the parent + the weight of the edge and the actual value of the vertex
-                        g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue = Math.min(g.getListOfVertices().get(j).vertexValue+g.getListOfVertices().get(j).listOfOutgoingEdges.get(k).edgeWeight,g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue);
-
-                        //We fill the graph with the values we found
-                        if(g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue<shortestPath[i][k]){
-                            shortestPath[i][k] = g.getListOfVertices().get(j).getListOfOutgoingEdges().get(k).getEdgeChild().vertexValue;
-                        }
-                    }
-                }
-            }
-
-            //We create an array that will store the final shortestPath
-            int[] realShortPath;
-            realShortPath = new int[g.nbVertices];
-
-            //We fill this array with the last line of the table
-            for (int o=0; o<g.nbVertices;o++){
-                realShortPath[o] = shortestPath[g.nbVertices][o];
-            }
-
-            System.out.println("The shortest path is : "+realShortPath);
-
+            g.FindShortestPath(g.getIdGraph());
 
             System.out.println("-------------------------");
             System.out.println("Give another number between 1 and 13 if you want to see another graph, or anything else to exit");
