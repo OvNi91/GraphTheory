@@ -48,6 +48,7 @@ public class Main {
                {
                    System.out.println("The graph is cyclic, therefore we cannot see the ranks of the vertices");
                } else {
+                   System.out.println();
                    for (int i = 0; i < g.getNbVertices(); i++) {
                        System.out.println("Vertex " + g.listOfVertices.get(i).getVertexID() + " -> Rank : " + g.getListOfVertices().get(i).getVertexRank());
                        System.out.println();
