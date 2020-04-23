@@ -361,6 +361,71 @@ public class Graph {
 
 
 
+    public boolean isScheduling(int choice) throws FileNotFoundException {
+        /** We check if th graph has a single entry point  **/
+        int cpt = 0;
+        for (int i = 0 ; i < this.getListOfVertices().size() ; i++)
+        {
+            if (this.getListOfVertices().get(i).isSource()) // If we have a source, we increment the cpt
+                cpt++;
+
+            if (cpt > 1) //If we have more than one source
+                return false;
+        }
+
+        /** We check if the graph has a single exit point **/
+        cpt = 0; // We reinitialize cpt because we will use ut one more time
+        for (int i = 0 ; i < this.getListOfVertices().size() ; i++)
+        {
+            if (this.getListOfVertices().get(i).getListOfOutgoingEdges().isEmpty()) //If we have an exit point
+                cpt++;
+
+            if (cpt > 1) //If we have more than one exit point
+                return false;
+        }
+
+        /** We check if the graph has a cycle **/
+        if (this.isCyclic(choice)) //If the graph has a cycle, then we return false
+            return false;
+
+        /** We check if the weight is the same for all the outgoing edges and if there is no negative weight **/
+        for (int i = 0 ; i < this.getListOfVertices().size() ; i++) //We go through all the vertices
+        {
+            for (int j = 0 ; j < this.getListOfVertices().get(i).getListOfOutgoingEdges().size() ; j++) //We go through the list of the outgoing edges
+            {
+                if (this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight() < 0) //If the weight of an outgoing edge is < 0
+                    return false;
+
+                if (j == this.getListOfVertices().get(i).getListOfOutgoingEdges().size() - 1) //If we reached the last edge -> because we start at rank 0 int the list we need to put '- 1'
+                {
+                    break;
+                }
+                else
+                {
+                    if (this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight() != this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j + 1).getEdgeWeight()) //If the following edge weight of the vertex has not the same weight as the previous one
+                        return false;
+                }
+
+            }
+        }
+
+        /** We check if all the outgoing edges of the source have a weight of 0 **/
+        for (int i = 0 ; i < this.getListOfVertices().size() ; i++) //We go through all the vertices
+        {
+            if(this.getListOfVertices().get(i).isSource())
+            {
+                for (int j = 0 ; j < this.getListOfVertices().get(i).getListOfOutgoingEdges().size() ; j++) //We go through all the outgoing edges of the source
+                {
+                    if (this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight() != 0) //If one outgoing edge weight's is not 0
+                        return false;
+                }
+            }
+        }
+
+        return true; //If all the conditions above are full filled
+    }
+
+
 
 
     //main used to try things
@@ -374,6 +439,7 @@ public class Graph {
             g.setChosenGraph(choice);
             g.fillGraph(g.chosenGraph);
 
+
             if (g.isCyclic(choice)) {
                 System.out.println("-> The graph has cycle <-");
             } else {
@@ -381,6 +447,13 @@ public class Graph {
             }
 
             g.setVerticesRank(choice);
+
+            if (g.isScheduling(choice))
+            {
+                System.out.println(">> Graph is a correct graph scheduling <<");
+            } else {
+                System.out.println(">> The graph is not a correct graph scheduling <<");
+            }
 
             System.out.println("---------------------------------------");
 
