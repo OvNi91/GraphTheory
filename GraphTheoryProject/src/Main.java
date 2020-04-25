@@ -63,35 +63,27 @@ public class Main {
 
 
             System.out.println("---------------------------------------");
+            g.setVerticesRank(choice);
 
            if (seeRanksInMain())
            {
                if (g.isCyclic(choice))
                {
-                   System.out.println("The graph is cyclic, therefore we cannot see the ranks of the vertices");
+                   System.out.println("The graph is cyclic, therefore it is irrelevant to see the ranks of the vertices");
                } else {
-                   System.out.println();
+                   System.out.println(">> VERTICES RANKS <<");
                    for (int i = 0; i < g.getNbVertices(); i++) {
-                       System.out.println("Vertex " + g.listOfVertices.get(i).getVertexID() + " -> Rank : " + g.getListOfVertices().get(i).getVertexRank());
-                       System.out.println();
+                       System.out.print("Vertex " + g.listOfVertices.get(i).getVertexID() + " -> Rank : " + g.getListOfVertices().get(i).getVertexRank());
                        if (g.getListOfVertices().get(i).isSource()){
-                           System.out.println("This vertex is a source");
+                           System.out.print(" => This vertex is a source");
                        }
-                       for (int j = 0; j < g.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
-                           System.out.println("Receives from : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
-                       }
-
-                       for (int j = 0; j < g.getListOfVertices().get(i).getListOfOutgoingEdges().size(); j++) {
-                           System.out.println("Sends to : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeParent().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight());
-                       }
-                       System.out.println("-------------------------");
+                       System.out.println();
                    }
                }
 
            }
 
             System.out.println("-------------------------");
-            System.out.println();
             System.out.println("Give another number between 1 and 13 if you want to see another graph, or anything else to exit");
             choice = sc.nextInt();
         }
@@ -105,14 +97,14 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int choice2;
 
-        System.out.println("Would you like to see the ranks of the vertices \n" +
+        System.out.println("Would you like to see the ranks of the vertices ? \n" +
                 "1 - Yes\n" +
                 "2 - No ");
         choice2 = sc.nextInt();
 
         while (choice2 != 1 && choice2 != 2)
         {
-            System.out.println("Would you like to see the ranks of the vertices \n" +
+            System.out.println("Would you like to see the ranks of the vertices ? \n" +
                     "1 - Yes\n" +
                     "2 - No ");
             choice2 = sc.nextInt();
