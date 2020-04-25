@@ -71,43 +71,43 @@ public class Graph {
     public boolean setChosenGraph(int choice) {
         switch (choice) {
             case 1:
-                this.chosenGraph = new File("./txt/1.txt");
+                this.chosenGraph = new File("./txt/B2_graph1.txt");
                 return true;
             case 2:
-                this.chosenGraph = new File("./txt/2.txt");
+                this.chosenGraph = new File("./txt/B2_graph2.txt");
                 return true;
             case 3:
-                this.chosenGraph = new File("./txt/3.txt");
+                this.chosenGraph = new File("./txt/B2_graph3.txt");
                 return true;
             case 4:
-                this.chosenGraph = new File("./txt/4.txt");
+                this.chosenGraph = new File("./txt/B2_graph4.txt");
                 return true;
             case 5:
-                this.chosenGraph = new File("./txt/5.txt");
+                this.chosenGraph = new File("./txt/B2_graph5.txt");
                 return true;
             case 6:
-                this.chosenGraph = new File("./txt/6.txt");
+                this.chosenGraph = new File("./txt/B2_graph6.txt");
                 return true;
             case 7:
-                this.chosenGraph = new File("./txt/7.txt");
+                this.chosenGraph = new File("./txt/B2_graph7.txt");
                 return true;
             case 8:
-                this.chosenGraph = new File("./txt/8.txt");
+                this.chosenGraph = new File("./txt/B2_graph8.txt");
                 return true;
             case 9:
-                this.chosenGraph = new File("./txt/9.txt");
+                this.chosenGraph = new File("./txt/B2_graph9.txt");
                 return true;
             case 10:
-                this.chosenGraph = new File("./txt/10.txt");
+                this.chosenGraph = new File("./txt/B2_graph10.txt");
                 return true;
             case 11:
-                this.chosenGraph = new File("./txt/11.txt");
+                this.chosenGraph = new File("./txt/B2_graph11.txt");
                 return true;
             case 12:
-                this.chosenGraph = new File("./txt/12.txt");
+                this.chosenGraph = new File("./txt/B2_graph12.txt");
                 return true;
             case 13:
-                this.chosenGraph = new File("./txt/13.txt");
+                this.chosenGraph = new File("./txt/B2_graph13.txt");
                 return true;
             default:
                 return false;
@@ -243,46 +243,57 @@ public class Graph {
     }
 
     public void displayAdjacencyMatrix(){
-        System.out.print("   ");
-        for (int i = 0; i < this.getListOfVertices().size(); i++){
-            System.out.print(this.getListOfVertices().get(i).getVertexID() + " ");
+        System.out.print("   ");//putting spaces in the top left of the table
+        for (int i = 0; i < this.getListOfVertices().size(); i++){//for loop to print all the columns
+            System.out.printf("%-3s",this.getListOfVertices().get(i).getVertexID());
         }
-        System.out.print("\n");
-        for (int i = 0; i < this.getListOfVertices().size(); i++){
-            if (i < 10){
-                System.out.print(this.getListOfVertices().get(i).getVertexID() + "  ");
-            }
-            else{
-                System.out.print(this.getListOfVertices().get(i).getVertexID() + " ");
-            }
-            for (int j = 0; j < this.getListOfVertices().size(); j++){
+        System.out.print("\n");//go to first line
+        for (int i = 0; i < this.getListOfVertices().size(); i++){//for loop that goes line by line
+
+            System.out.printf("%-3s", this.getListOfVertices().get(i).getVertexID());//print the line value
+
+            for (int j = 0; j < this.getListOfVertices().size(); j++){//for loop that goes for each column in the line
                 boolean isChild = false;
-                for (int k = 0; k < this.getListOfVertices().get(i).getListOfOutgoingEdges().size(); k++){
+                for (int k = 0; k < this.getListOfVertices().get(i).getListOfOutgoingEdges().size(); k++){//for loop that goes through the outgoing edges of the line, checking if an edge between the line and column exists
                     if(this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeParent().getVertexID() == this.getListOfVertices().get(j).getVertexID()){
                         isChild = true;
                     }
                 }
-                if (isChild == true){
-                    if (j < 10){
-                        System.out.print("1 ");
-                    }
-                    else{
-                        System.out.print("1  ");
-                    }
-                }
-                else{
-                    if (j < 10){
-                        System.out.print("- ");
-                    }
-                    else{
-                        System.out.print("-  ");
-                    }
-                }
+                if (isChild == true){ System.out.printf("%-3s", "1"); } //if an edg exists, we print "1", if not, we print "-"
+
+                else{ System.out.printf("%-3s", "-"); }
             }
-            System.out.print("\n");
+            System.out.print("\n");// go to next line
         }
     }
 
+    public void displayValueMatrix(){
+        System.out.print("   "); //putting spaces in the top left of the table
+        for (int i = 0; i < this.getListOfVertices().size(); i++){ //for loop to print all the columns
+            System.out.printf("%-3s",this.getListOfVertices().get(i).getVertexID());
+        }
+        System.out.print("\n"); //go to first line
+        for (int i = 0; i < this.getListOfVertices().size(); i++){ //for loop that goes line by line
+
+            System.out.printf("%-3s",this.getListOfVertices().get(i).getVertexID()); //print the line value
+
+            for (int j = 0; j < this.getListOfVertices().size(); j++){ //for loop that goes for each column in the line
+                boolean isChild = false; //value to check if there's an edge between the line and the column
+                int weight = 0; //value of the weight of the edge if one exists bewteen the line and column
+                for (int k = 0; k < this.getListOfVertices().get(i).getListOfOutgoingEdges().size(); k++){ //for loop that goes through the outgoing edges of the line, checking if an edge between the line and column exists
+                    if(this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeParent().getVertexID() == this.getListOfVertices().get(j).getVertexID()){
+                        isChild = true;
+                        weight = this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeWeight();
+                    }
+                }
+                if (isChild == true){ System.out.printf("%-3s", weight); } //putting the value if an edge exists, if no, we put a "-"
+
+                else{ System.out.printf("%-3s","-"); }
+            }
+            System.out.print("\n"); //go to next line
+        }
+
+    }
 
     /** Method to fill the ranks of the different vertices **/
     /** Can be used only if the given graph has no cycle **/
@@ -358,10 +369,8 @@ public class Graph {
         }
     }
 
-
-
-
     public boolean isScheduling(int choice) throws FileNotFoundException {
+
         /** We check if th graph has a single entry point  **/
         int cpt = 0;
         for (int i = 0 ; i < this.getListOfVertices().size() ; i++)
@@ -396,7 +405,7 @@ public class Graph {
                 if (this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight() < 0) //If the weight of an outgoing edge is < 0
                     return false;
 
-                if (j == this.getListOfVertices().get(i).getListOfOutgoingEdges().size() - 1) //If we reached the last edge -> because we start at rank 0 int the list we need to put '- 1'
+                if (j == this.getListOfVertices().get(i).getListOfOutgoingEdges().size() - 1) //If we reached the last edge -> because we start at rank 0 in the list we need to put '- 1'
                 {
                     break;
                 }
@@ -423,59 +432,5 @@ public class Graph {
         }
 
         return true; //If all the conditions above are full filled
-    }
-
-
-
-
-    //main used to try things
-    public static void main(String[] args) throws FileNotFoundException {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Give the number of the graph you want to see, between 1 to 13, anything else to exit");
-        int choice = sc.nextInt();
-        while (1 <= choice && choice <= 13){
-            Graph g = new Graph();
-            g.setChosenGraph(choice);
-            g.fillGraph(g.chosenGraph);
-
-
-            if (g.isCyclic(choice)) {
-                System.out.println("-> The graph has cycle <-");
-            } else {
-                System.out.println("-> The graph has no cycle <-");
-            }
-
-            g.setVerticesRank(choice);
-
-            if (g.isScheduling(choice))
-            {
-                System.out.println(">> Graph is a correct graph scheduling <<");
-            } else {
-                System.out.println(">> The graph is not a correct graph scheduling <<");
-            }
-
-            System.out.println("---------------------------------------");
-
-
-            for (int i = 0; i < g.getNbVertices(); i++) {
-                System.out.println("Vertex " + g.listOfVertices.get(i).getVertexID() + " -> Rank : " + g.getListOfVertices().get(i).getVertexRank());
-                if (g.getListOfVertices().get(i).isSource()){
-                    System.out.println("This vertex is a source");
-                }
-                for (int j = 0; j < g.getListOfVertices().get(i).getListOfIngoingEdges().size(); j++) {
-                    System.out.println("Receives from : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeChild().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfIngoingEdges().get(j).getEdgeWeight());
-                }
-
-                for (int j = 0; j < g.getListOfVertices().get(i).getListOfOutgoingEdges().size(); j++) {
-                    System.out.println("Sends to : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeParent().getVertexID() + " with a weight of : " + g.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight());
-                }
-                System.out.println("-------------------------");
-            }
-            System.out.println("-------------------------");
-            System.out.println("Give another number between 1 and 13 if you want to see another graph, or anything else to exit");
-            choice = sc.nextInt();
-        }
-        System.out.println("Bye !");
     }
 }
