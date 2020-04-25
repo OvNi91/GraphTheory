@@ -370,6 +370,7 @@ public class Graph {
     }
 
     public boolean isScheduling(int choice) throws FileNotFoundException {
+
         /** We check if th graph has a single entry point  **/
         int cpt = 0;
         for (int i = 0 ; i < this.getListOfVertices().size() ; i++)
@@ -404,7 +405,7 @@ public class Graph {
                 if (this.getListOfVertices().get(i).getListOfOutgoingEdges().get(j).getEdgeWeight() < 0) //If the weight of an outgoing edge is < 0
                     return false;
 
-                if (j == this.getListOfVertices().get(i).getListOfOutgoingEdges().size() - 1) //If we reached the last edge -> because we start at rank 0 int the list we need to put '- 1'
+                if (j == this.getListOfVertices().get(i).getListOfOutgoingEdges().size() - 1) //If we reached the last edge -> because we start at rank 0 in the list we need to put '- 1'
                 {
                     break;
                 }

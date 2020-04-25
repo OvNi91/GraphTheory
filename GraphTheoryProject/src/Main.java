@@ -45,16 +45,20 @@ public class Main {
 
             if (g.isCyclic(choice)) {
                 System.out.println("-> The graph " + choice + " has cycle <-");
+                System.out.println(">> The graph is not a correct graph scheduling <<");
+            } else {
                 if (g.isScheduling(choice))
                 {
-                    System.out.println(">> Graph is a correct graph scheduling <<");
+                    System.out.println(">> The graph " + choice + " has no cycle <<");
+                    System.out.println(">> The graph is a correct graph scheduling <<");
                 } else {
+
+                    System.out.println(">> The graph " + choice + " has no cycle <<");
                     System.out.println(">> The graph is not a correct graph scheduling <<");
+                    g.setVerticesRank(choice);
                 }
-            } else {
-                System.out.println(">> The graph " + choice + " has no cycle <<");
-                System.out.println(">> The graph is not a correct graph scheduling <<");
-                g.setVerticesRank(choice);
+
+
             }
 
 
