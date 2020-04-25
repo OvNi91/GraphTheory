@@ -33,6 +33,11 @@ public class Main {
             System.out.println();
 
             g.displayAdjacencyMatrix();
+            System.out.println();
+
+            System.out.println(">> VALUE MATRIX <<");
+            System.out.println();
+            g.displayValueMatrix();
 
             System.out.println();
 

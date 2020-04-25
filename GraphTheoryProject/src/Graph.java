@@ -283,6 +283,53 @@ public class Graph {
         }
     }
 
+    public void displayValueMatrix(){
+        System.out.print("    ");
+        for (int i = 0; i < this.getListOfVertices().size(); i++){
+            System.out.print(this.getListOfVertices().get(i).getVertexID() + "  ");
+        }
+        System.out.print("\n");
+        for (int i = 0; i < this.getListOfVertices().size(); i++){
+            if (i < 10){
+                System.out.print(this.getListOfVertices().get(i).getVertexID() + "   ");
+            }
+            else{
+                System.out.print(this.getListOfVertices().get(i).getVertexID() + "  ");
+            }
+            for (int j = 0; j < this.getListOfVertices().size(); j++){
+                boolean isChild = false;
+                int weight = 0;
+                for (int k = 0; k < this.getListOfVertices().get(i).getListOfOutgoingEdges().size(); k++){
+                    if(this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeParent().getVertexID() == this.getListOfVertices().get(j).getVertexID()){
+                        isChild = true;
+                        weight = this.getListOfVertices().get(i).getListOfOutgoingEdges().get(k).getEdgeWeight();
+                    }
+                }
+                if (isChild == true){
+                    if (j < 10){
+                        System.out.print(weight + "  ");
+                    }
+                    else{
+                        if (weight < 10){System.out.print(weight + "   ");}
+                        else{
+                            System.out.println(weight);
+                        }
+                    }
+                }
+                else{
+                    if (j < 10){
+                        System.out.print("-  ");
+                    }
+                    else{
+                        System.out.print("-   ");
+                    }
+                }
+            }
+            System.out.print("\n");
+        }
+
+    }
+
     /** Method to fill the ranks of the different vertices **/
     /** Can be used only if the given graph has no cycle **/
     public void setVerticesRank(int idGraph) throws FileNotFoundException {
