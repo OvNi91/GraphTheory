@@ -4,6 +4,21 @@ import java.util.Scanner;
 
 public class Main {
 
+    public final static void clearConsole()
+    {
+        try
+        {
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")) {Runtime.getRuntime().exec("cls");}
+            else{ Runtime.getRuntime().exec("clear");}
+        }
+        catch (final Exception e)
+        {
+            //  Handle any exceptions.
+        }
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
 
         Scanner sc = new Scanner(System.in);
@@ -13,8 +28,6 @@ public class Main {
             Graph g = new Graph();
             g.setChosenGraph(choice);
             g.fillGraph(g.chosenGraph);
-
-
 
             System.out.println(">> ADJACENCY MATRIX <<");
             System.out.println();
